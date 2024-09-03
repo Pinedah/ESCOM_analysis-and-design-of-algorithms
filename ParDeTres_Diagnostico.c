@@ -12,32 +12,13 @@ Integrantes: Andrea Acevedo Medina, Francisco Pineda Hernandez, Rodrigo Vidal Ra
 
 int generarAleatorio(int menor, int mayor, int parImpar){
 
-    int random = rand() % (mayor - menor + 1) + menor;
-    if(parImpar == 1){ 
-        if(random % 2 == 0){ // IMPAR
-            if(random == mayor){
-                random -= 1;
-            }
-            if(random == menor){
-                random += 1;
-            }
-            return random;
-        }else{
-            return random;
-        }
+    if(parImpar == 1){
+        // int num = rand() % (mayor - menor + 1) + menor;
+        return (rand() % (mayor - menor + 1) / 2) * 2 + 1;     
     }else{
-        if(random % 2 != 0){ // PAR
-            if(random == mayor){
-                random -= 1;
-            }
-            if(random == menor){
-                random += 1;
-            }
-            return random;
-        }else{
-            return random;
-        }
+        return (rand() % (mayor - menor + 1) / 2) * 2;     
     }
+
 }
 
 int main(){
