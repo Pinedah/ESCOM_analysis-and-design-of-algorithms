@@ -9,8 +9,9 @@ Tras 5 iteraciones:
 El peor caso fue: 8
 El mejor caso fue: 0
 El promedio fue: 4.000
-
 */
+
+// SUPONGASE QUE EL USUARIO NO ES IMBECIL:  
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,7 +64,6 @@ int main(){
     }
     
     promedio /= iteraciones;
-    
     printf("\n\nEl peor caso fue: %d \nEl mejor caso fue: %d \nEl promedio fue: %0.3f\n\n", peorCaso, mejorCaso, promedio);
     
 
