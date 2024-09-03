@@ -81,7 +81,7 @@ For any questions or discussions, feel free to open an issue or contact the cour
 
 **Instituto Politécnico Nacional**
 
-**School of Data Science**
+**Data Science Program**
 
 **Semester:** III
 
