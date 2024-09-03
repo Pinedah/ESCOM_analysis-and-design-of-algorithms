@@ -3,6 +3,13 @@
 Fecha: Septiembre 3, 2024
 Nombre de Equipo:  PAR de tres
 Integrantes: Andrea Acevedo Medina, Francisco Pineda Hernandez, Rodrigo Vidal Ramirez Aguilar
+
+Tras 5 iteraciones: 
+
+El peor caso fue: 8
+El mejor caso fue: 0
+El promedio fue: 4.000
+
 */
 
 #include <stdio.h>
@@ -12,11 +19,22 @@ Integrantes: Andrea Acevedo Medina, Francisco Pineda Hernandez, Rodrigo Vidal Ra
 
 int generarAleatorio(int menor, int mayor, int parImpar){
 
+    int num;
     if(parImpar == 1){
-        // int num = rand() % (mayor - menor + 1) + menor;
-        return (rand() % (mayor - menor + 1) / 2) * 2 + 1;     
+        
+        do{
+            num = rand() % (mayor - menor + 1) + menor;
+        }while(num % 2 == 0);
+        
+        return num;
+
+
     }else{
-        return (rand() % (mayor - menor + 1) / 2) * 2;     
+        do{
+            num = rand() % (mayor - menor + 1) + menor;
+        }while(num % 2 != 0);
+        
+        return num;
     }
 
 }
@@ -67,7 +85,7 @@ int main(){
     
     promedio /= iteraciones;
     
-    printf("\n\nEl peor caso fue: %d \nEl mejor caso fue: %d \nEl promedio fue: %0.3f", peorCaso, mejorCaso, promedio);
+    printf("\n\nEl peor caso fue: %d \nEl mejor caso fue: %d \nEl promedio fue: %0.3f\n\n", peorCaso, mejorCaso, promedio);
     
 
     return 0;
