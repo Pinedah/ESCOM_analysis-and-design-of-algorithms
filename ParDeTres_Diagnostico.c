@@ -16,28 +16,7 @@ El promedio fue: 4.000
 #include <stdlib.h>
 #include <time.h>
 
-
-int generarAleatorio(int menor, int mayor, int parImpar){
-
-    int num;
-    if(parImpar == 1){
-        
-        do{
-            num = rand() % (mayor - menor + 1) + menor;
-        }while(num % 2 == 0);
-        
-        return num;
-
-
-    }else{
-        do{
-            num = rand() % (mayor - menor + 1) + menor;
-        }while(num % 2 != 0);
-        
-        return num;
-    }
-
-}
+int generarAleatorio(int menor, int mayor, int parImpar);
 
 int main(){
 
@@ -89,4 +68,24 @@ int main(){
     
 
     return 0;
+}
+
+
+int generarAleatorio(int menor, int mayor, int parImpar){
+
+    int num;
+    if(parImpar == 1){
+        
+        do{
+            num = rand() % (mayor - menor + 1) + menor;
+        }while(num % 2 == 0);
+        return num;
+    
+    }else{
+
+        do{
+            num = rand() % (mayor - menor + 1) + menor;
+        }while(num % 2 != 0);
+        return num;
+    }
 }
