@@ -39,13 +39,17 @@ int main() {
     return 0;
 }
 
-// Función para llenar el array con números aleatorios
-void llenarArray(int *arr, int longitud) {
-    int *ptr;
-    for(ptr = arr; ptr < &arr[longitud]; ptr++) {
-        *ptr = rand() % 101; // Generar números aleatorios entre 0 y 100
+// Función para llenar el array con números de un archivo txt
+void llenarArray(int *arr, int longi) {
+    FILE *archivo = fopen("numeros10millones.txt", "r");
+    if (archivo == NULL){
+        printf("No se leyó nada\n");
+        return 0;
     }
-}
+    for(int i; i<longi; i++)
+        fscanf(archivo,"%d", &arr[i]);
+
+};
 
 // Función para recorrer e imprimir el array
 void imprimirArreglo(int *arr, int longitud) {
