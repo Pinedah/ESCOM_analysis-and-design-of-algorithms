@@ -14,8 +14,8 @@ int main() {
     int longi;
     printf("Ingrese longitud del array: ");
     scanf("%d", &longi);
-    
-    int *arr = (int *)malloc(longi * sizeof(int));
+
+    int *arr = (int*)malloc(longi * sizeof(int));
 
     llenar(arr, longi);
 
@@ -64,7 +64,7 @@ void bubble(int *arr, int longi) {
     
     int *i, *j;
     for (i = arr + longi; i >= arr; i--){
-        for (j = arr; j <= (i - 1); j++){
+        for (j = arr; j < (i - 1); j++){
             if(*j > *(j + 1)){
                 *j ^= *(j + 1);
                 *(j + 1) ^= *j;
