@@ -53,11 +53,16 @@ void llenarDesendente(int *arr, int longi) {
 };
 
 void llenar(int *arr, int longi) {
-    int *ptr;
-    for(ptr = arr; ptr < &arr[longi]; ptr++) {
-        *ptr = rand() % 1000;
+
+    FILE *archivo = fopen("numeros10millones.txt", "r");
+    if (archivo == NULL){
+        printf("No se leyó nada\n");
+        return 0;
     }
+    for(int i; i<longi; i++)
+        fscanf(archivo,"%d", &arr[i]);
 };
+
 
 
 
