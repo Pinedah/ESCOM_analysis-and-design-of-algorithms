@@ -9,6 +9,8 @@ void recorrer(int *arr, int longi);
 
 int main() {
 
+
+    clock_t start, end;
     srand(time(NULL));
     
     int longi;
@@ -20,7 +22,14 @@ int main() {
     llenar(arr, longi);
 
     printf("Ordenado usando bubble: \n");
+    start = clock();
     bubble(arr, longi);
+    end = clock();
+
+    double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTiempo: %f", time_taken);
+
     recorrer(arr, longi);
 
     free(arr);
