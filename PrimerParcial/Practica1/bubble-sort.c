@@ -28,9 +28,9 @@ int main() {
 
     double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
 
-    printf("\nTiempo: %f", time_taken);
 
     recorrer(arr, longi);
+    printf("\nTiempo: %f", time_taken);
 
     free(arr);
     return 0;
