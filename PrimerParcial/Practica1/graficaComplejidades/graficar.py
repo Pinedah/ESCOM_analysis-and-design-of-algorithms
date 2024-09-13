@@ -22,9 +22,9 @@ x2, y2 = leer_datos(archivo2)
 x3, y3 = leer_datos(archivo3)
 
 # Graficar los datos
-plt.plot(x1, y1, label='Datos 1', marker='o')
-plt.plot(x2, y2, label='Datos 2', marker='s')
-plt.plot(x3, y3, label='Datos 3', marker='^')
+plt.plot(x1, y1, label='Peor Caso', marker='o')
+plt.plot(x2, y2, label='Caso Promedio', marker='s')
+plt.plot(x3, y3, label='Mejor Caso', marker='^')
 
 # Personalización de la gráfica
 plt.title('Comparación de Gráficas')
