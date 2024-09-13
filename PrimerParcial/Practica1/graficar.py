@@ -1,28 +1,36 @@
 import matplotlib.pyplot as plt
 
-def leer_puntos_desde_archivo(archivo):
-    puntos_x = []
-    puntos_y = []
-    with open(archivo, 'r') as file:
-        for line in file:
-            x, y = map(float, line.strip().split(','))
-            puntos_x.append(x)
-            puntos_y.append(y)
-    return puntos_x, puntos_y
+# Función para leer datos desde un archivo txt
+def leer_datos(archivo):
+    x = []
+    y = []
+    with open(archivo, 'r') as f:
+        for linea in f:
+            datos = linea.split(',')  # Separar por comas
+            x.append(float(datos[0]))
+            y.append(float(datos[1]))
+    return x, y
 
-def graficar_curva(valores_x, valores_y):
-    plt.plot(valores_x, valores_y)
-    plt.xlabel('Eje X')
-    plt.ylabel('Eje Y')
-    plt.title('Gráfico de una Curva')
-    plt.grid(True)
-    plt.show()
+# Archivos txt con los datos
+archivo1 = 'points.txt'
+#archivo2 = 'datos2.txt'
+#archivo3 = 'datos3.txt'
 
-# Nombre del archivo
-archivo = 'points.txt'
+# Leer los datos de los archivos
+x1, y1 = leer_datos(archivo1)
+#x2, y2 = leer_datos(archivo2)
+#x3, y3 = leer_datos(archivo3)
 
-# Leer los puntos desde el archivo
-valores_x, valores_y = leer_puntos_desde_archivo(archivo)
+# Graficar los datos
+plt.plot(x1, y1, label='Datos 1', marker='o')
+#plt.plot(x2, y2, label='Datos 2', marker='s')
+#plt.plot(x3, y3, label='Datos 3', marker='^')
 
-# Graficar los puntos
-graficar_curva(valores_x, valores_y)
+# Personalización de la gráfica
+plt.title('Comparación de Gráficas')
+plt.xlabel('Eje X')
+plt.ylabel('Eje Y')
+plt.legend()  # Mostrar leyendas
+plt.grid(True)  # Mostrar la cuadrícula
+plt.xscale('log')  # Escala logarítmica en el eje X si fuera necesario
+plt.show()
