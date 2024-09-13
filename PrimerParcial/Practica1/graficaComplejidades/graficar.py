@@ -28,8 +28,8 @@ plt.plot(x3, y3, label='Mejor Caso', marker='^')
 
 # Personalización de la gráfica
 plt.title('Comparación de Gráficas')
-plt.xlabel('Eje X')
-plt.ylabel('Eje Y')
+plt.xlabel('Número de Iteraciones [n]')
+plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
 plt.grid(True)  # Mostrar la cuadrícula
 plt.xscale('log')  # Escala logarítmica en el eje X si fuera necesario
