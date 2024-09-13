@@ -12,19 +12,19 @@ def leer_datos(archivo):
     return x, y
 
 # Archivos txt con los datos
-archivo1 = 'points.txt'
-#archivo2 = 'datos2.txt'
-#archivo3 = 'datos3.txt'
+archivo1 = 'peorCaso.txt'
+archivo2 = 'casoPromedio.txt'
+archivo3 = 'mejorCaso.txt'
 
 # Leer los datos de los archivos
 x1, y1 = leer_datos(archivo1)
-#x2, y2 = leer_datos(archivo2)
-#x3, y3 = leer_datos(archivo3)
+x2, y2 = leer_datos(archivo2)
+x3, y3 = leer_datos(archivo3)
 
 # Graficar los datos
 plt.plot(x1, y1, label='Datos 1', marker='o')
-#plt.plot(x2, y2, label='Datos 2', marker='s')
-#plt.plot(x3, y3, label='Datos 3', marker='^')
+plt.plot(x2, y2, label='Datos 2', marker='s')
+plt.plot(x3, y3, label='Datos 3', marker='^')
 
 # Personalización de la gráfica
 plt.title('Comparación de Gráficas')
