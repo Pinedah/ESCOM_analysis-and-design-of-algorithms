@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
 # Función para leer datos desde un archivo txt
+
 def leer_datos(archivo):
     x = []
     y = []
@@ -27,7 +28,7 @@ plt.plot(x2, y2, label='Caso Promedio', marker='s')
 plt.plot(x3, y3, label='Mejor Caso', marker='^')
 
 # Personalización de la gráfica
-plt.title('Comparación de Gráficas')
+plt.title('Nombre de los algoritmos...')
 plt.xlabel('Número de Iteraciones [n]')
 plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
