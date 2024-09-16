@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+//Declaración de funciones
 void bubble(int *arr, int longi);
 void llenar(int *arr, int longi);
 void recorrer(int *arr, int longi);
@@ -11,17 +12,23 @@ int main() {
     clock_t start, end;
     srand(time(NULL));
     int longi;
-    
+
+    //Determinar la longitud del arreglo
     printf("Ingrese longitud del array: ");
     scanf("%d", &longi);
 
     int *arr = (int*)malloc(longi * sizeof(int));
 
+    //Llenar el arreglo desordenado
     llenar(arr, longi);
     printf("Ordenado usando bubble: \n");
+    
     //Empezamos el contador de tiempo
     start = clock();
+    
+    //Se realiza el ordenamiento
     bubble(arr, longi);
+    
     //El contador termina
     end = clock();
 
@@ -34,6 +41,7 @@ int main() {
     return 0;
 }
 
+//Función para llenar ascendentemente
 void llenarAscendente(int *arr, int longi) {
     int *ptr;
     int i;
@@ -42,7 +50,8 @@ void llenarAscendente(int *arr, int longi) {
     }
 }
 
-void llenarDesendente(int *arr, int longi) {
+//Función para llenar descendentemente
+void llenarDescendente(int *arr, int longi) {
     int *ptr;
     int i=longi;
     for(ptr=arr; ptr < &arr[longi]; ptr++) {
@@ -50,6 +59,7 @@ void llenarDesendente(int *arr, int longi) {
     }
 }
 
+//Función para llenar desde un archivo
 void llenar(int *arr, int longi) {
     FILE *archivo = fopen("numeros10millones.txt", "r");
     if (archivo == NULL){
@@ -60,6 +70,7 @@ void llenar(int *arr, int longi) {
         fscanf(archivo,"%d", &arr[i]);
 }
 
+//Función para imprimir un arreglo
 void recorrer(int *arr, int longi) {
     int *ptr;
     for(ptr=arr; ptr < &arr[longi]; ptr++) {
