@@ -28,7 +28,7 @@ plt.plot(x_mejor, y_mejor, label='Mejor Caso', marker='^', markersize=8, linesty
 
 # Personalización de la gráfica
 plt.title('BUBBLE SORT')
-plt.xlabel('Número de Iteraciones [n]')
+plt.xlabel('Cantidad de elementos [n]')
 plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
 plt.grid(True)  # Mostrar la cuadrícula
