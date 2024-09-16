@@ -28,7 +28,7 @@ plt.plot(x2, y2, label='Caso Promedio', marker='s')
 plt.plot(x3, y3, label='Mejor Caso', marker='^')
 
 # Personalización de la gráfica
-plt.title('Nombre de los algoritmos...')
+plt.title('HEAP SORT')
 plt.xlabel('Número de Iteraciones [n]')
 plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
