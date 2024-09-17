@@ -7,55 +7,31 @@ void partition(int*, int, int, int*);
 void generarArchivos(int*, int);
 
 int main() {
-    int n;
-    printf("Cuantos datos quieres ingresar? \n");
-    scanf("%d", &n);
+    int sizes[] = {1000000}; // Define los tamaños de los arreglos a generar
+    for (int i = 0; i < 1; i++) { // Itera sobre cada tamaño
+        int n = sizes[i]; // Toma el tamaño actual
+        int *arr = malloc(n * sizeof(int)); // Reserva memoria para el arreglo
+        generarArchivos(arr, n); // Genera números aleatorios y los escribe en un archivo
 
-    int *arr = malloc(n * sizeof(int));
-    generarArchivos(arr, n);
+        clock_t start, end; // Variables para medir el tiempo
+        start = clock(); // Toma el tiempo antes de ordenar
+        quicksort(arr, 0, n - 1); // Ordena el arreglo
+        end = clock(); // Toma el tiempo después de ordenar
+        double time_taken = ((double)end - start) / CLOCKS_PER_SEC; // Calcula el tiempo que tardó en ordenar
 
-    char randomFilename[20];
-    sprintf(randomFilename, "random%d.txt", n);
-    printf("Contenido del archivo \"random%d.txt\":\n", n);
-    FILE *randomFile = fopen(randomFilename, "r");
-    if (randomFile) {
-        int num;
-        while (fscanf(randomFile, "%d, ", &num) != EOF) {
-            printf("%d ", num);
+        char filename[20]; // Buffer para el nombre del archivo
+        sprintf(filename, "sorted%d.txt", n); // Genera el nombre del archivo
+        FILE *file = fopen(filename, "w"); // Abre el archivo para escritura
+        for (int j = 0; j < n; j++) { // Itera sobre cada número en el arreglo
+            fprintf(file, "%d\n", arr[j]); // Escribe el número en el archivo
         }
-        fclose(randomFile);
-    } else {
-        printf("Error al abrir el archivo \"random%d.txt\"\n", n);
+        fclose(file); // Cierra el archivo
+
+        printf("Tiempo tomado para ordenar %d números: %f segundos\n", n, time_taken); // Imprime el tiempo que tardó en ordenar
+        free(arr); // Libera la memoria reservada para el arreglo
     }
-
-    printf("\n\n");
-    clock_t start, end;
-    start = clock();
-    quicksort(arr, 0, n - 1);
-    end = clock();
-    double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
-
-    char sortedFilename[20];
-    sprintf(sortedFilename, "sorted%d.txt", n);
-
-    FILE *sortedFile = fopen(sortedFilename, "r");
-    if (sortedFile) {
-        printf("Contenido del archivo \"%s\":\n", sortedFilename);
-        int num;
-        while (fscanf(sortedFile, "%d, ", &num) != EOF) {
-            printf("%d ", num);
-        }
-        fclose(sortedFile);
-    } else {
-        printf("Error al abrir el archivo \"%s\"\n", sortedFilename);
-    }
-    printf("\n\nTiempo tomado para ordenar %d numeros: %f segundos\n", n, time_taken);
-
-    free(arr);
-    return 0;
+    return 0; // Termina el programa
 }
-// Resto del c�digo (quicksort, generarArchivos, partition) permanece igual...
-
 
 void quicksort(int *x, int lb, int ub) {
     if (lb >= ub) {
@@ -68,14 +44,14 @@ void quicksort(int *x, int lb, int ub) {
     quicksort(x, pj + 1, ub);//llamada recursiva para acomodar el subarreglo izquierdo (mayores que el elemento)
 }
 
-void generarArchivos(int *arr, int n) { // Cambio de nombre de la funci�n
+void generarArchivos(int *arr, int n) { // Cambio de nombre de la función
     char filename[20]; // Buffer para el nombre del archivo
     sprintf(filename, "random%d.txt", n); // Genera el nombre del archivo
     FILE *file = fopen(filename, "w"); // Abre el archivo para escritura
-    srand(time(0)); // Inicializa la semilla del generador de n�meros aleatorios
+    srand(time(0)); // Inicializa la semilla del generador de números aleatorios
     for (int j = 0; j < n; j++) { // Itera n veces
-        arr[j] = rand()%10000000; // Genera un n�mero aleatorio y lo guarda en el arreglo
-        fprintf(file, "%d, ", arr[j]); // Escribe el n�mero en el archivo
+        arr[j] = rand(); // Genera un número aleatorio y lo guarda en el arreglo
+        fprintf(file, "%d\n", arr[j]); // Escribe el número en el archivo
     }
     fclose(file); // Cierra el archivo
 }
