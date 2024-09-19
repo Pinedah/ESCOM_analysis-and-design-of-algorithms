@@ -58,7 +58,7 @@ void llenarArray(int *arr, int longi) {
         printf("No se leyó nada\n");
         exit(0);
     }
-    for(int i; i<longi; i++)
+    for(int i = 0; i<longi; i++)
         fscanf(archivo,"%d", &arr[i]);
 
 };
