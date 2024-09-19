@@ -78,10 +78,10 @@ void merge(int *arr, int p, int q, int r){
 void llenarArray(int *arr, int longi) {
     FILE *archivo = fopen("numeros10millones.txt", "r");
     if (archivo == NULL){
-        printf("No se leyó nada\n");
+        printf("No se leyÃ³ nada\n");
         exit(0);
     }
-    for(int i; i<longi; i++)
+    for(int i = 0; i<longi; i++)
         fscanf(archivo,"%d", &arr[i]);
 
 };
