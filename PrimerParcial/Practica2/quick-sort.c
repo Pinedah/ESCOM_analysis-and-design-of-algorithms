@@ -19,7 +19,7 @@ int main() {
         start = clock();
         quicksort(arr, 0, n - 1);
         end = clock();
-        //generarArchivos(arr,n);
+        generarArchivos(arr,n);
         double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
         printf("Tiempo tomado para ordenar %d numeros: %f segundos\n", n, time_taken);
         free(arr);
@@ -37,6 +37,10 @@ void quicksort(int *x, int lb, int ub) {
 }
 
 void partition(int *x, int lb, int ub, int* pj) {
+    int random_index = lb + rand() % (ub - lb + 1);
+    int temp = *(x + lb);
+    *(x + lb) = *(x + random_index);
+    *(x + random_index) = temp;
     int a = *(x+lb);
     int up = ub;
     int down = lb;
@@ -48,9 +52,9 @@ void partition(int *x, int lb, int ub, int* pj) {
             up--;
         }
         if (down < up) {
-            *(x+down) ^= *(x+up);
-            *(x+up) ^= *(x+down);
-            *(x+down) ^= *(x+up);
+            int temp_swap = *(x + down);
+            *(x + down) = *(x + up);
+            *(x + up) = temp_swap;
         }
     }
     *(x+lb) = *(x+up);
@@ -69,16 +73,16 @@ void llenarArray(int *arr, int longi) {
 }
 
 void llenarArrayPeorCaso(int *arr, int longi) {
-    int *ptr = arr;  
+    int *ptr = arr;
     for (long unsigned int i = longi; i > 0; i--) {
-        *ptr = i;  
-        ptr++;  
+        *ptr = i;
+        ptr++;
     }
 }
 void llenarArrayMejorCaso(int *arr, int longi) {
-    int *ptr = arr;  
+    int *ptr = arr;
     for (int i = 1; i <= longi; i++) {
-        *ptr = i;  
+        *ptr = i;
         ptr++;
     }
 }
