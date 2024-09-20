@@ -10,10 +10,10 @@ void llenarArrayPeorCaso(int *, int);
 void llenarArrayMejorCaso(int *, int);
 
 int main() {
-        int n = 100000;
+        int n = 10000;
         int *arr = malloc(n * sizeof(int));
-        //llenarArray(arr, n);
-        llenarArrayPeorCaso(arr, n);
+        llenarArray(arr, n);
+        //llenarArrayPeorCaso(arr, n);
         //llenarArrayMejorCaso(arr, n);
         clock_t start, end;
         start = clock();
