@@ -27,10 +27,10 @@ plt.plot(x_promedio, y_promedio, label='Caso Promedio', marker='s', markersize=8
 plt.plot(x_mejor, y_mejor, label='Mejor Caso', marker='^', markersize=8, linestyle='-', linewidth=2)
 
 # Personalización de la gráfica
-plt.title('SELECTION SORT')
+plt.title('MERGE SORT')
 plt.xlabel('Cantidad de elementos [n]')
 plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
 plt.grid(True)  # Mostrar la cuadrícula
-# plt.xscale('log')  # Escala logarítmica en el eje X si fuera necesario
+#plt.xscale('log')  # Escala logarítmica en el eje X si fuera necesario
 plt.show()
