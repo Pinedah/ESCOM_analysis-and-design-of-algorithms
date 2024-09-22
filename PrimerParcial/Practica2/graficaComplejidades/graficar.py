@@ -29,9 +29,9 @@ x_promedio, y_promedio = leer_datos(casoPromedio)
 x_mejor, y_mejor = leer_datos(mejorCaso)
 
 # Graficar los datos con marcadores más visibles
-plt.plot(x_peor, y_peor, label='Quick Sort', marker='o', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_peor, y_peor, label='Peor Caso', marker='o', markersize=8, linestyle='-', linewidth=2)
 plt.plot(x_promedio, y_promedio, label='Caso Promedio', marker='s', markersize=8, linestyle='-', linewidth=2)
-plt.plot(x_mejor, y_mejor, label='mejorCaso Sort', marker='^', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_mejor, y_mejor, label='Mejor Caso', marker='^', markersize=8, linestyle='-', linewidth=2)
 
 # Personalización de la gráfica
 plt.title('QUICK SORT')
