@@ -12,9 +12,12 @@ void llenarArrayMejorCaso(int *, int);
 int main() {
         int n = 10000000;
         int *arr = malloc(n * sizeof(int));
-        llenarArray(arr, n);
+        //llenarArray(arr, n);
         //llenarArrayPeorCaso(arr, n);
-        //llenarArrayMejorCaso(arr, n);
+        llenarArrayMejorCaso(arr, n);
+
+        //printf("")
+
         clock_t start, end;
         start = clock();
         quicksort(arr, 0, n - 1);
