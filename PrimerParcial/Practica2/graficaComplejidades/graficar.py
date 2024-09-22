@@ -34,7 +34,7 @@ plt.plot(x_peor, y_peor, label='Merge Sort', marker='o', markersize=8, linestyle
 plt.plot(x_mejor, y_mejor, label='quick Sort', marker='^', markersize=8, linestyle='-', linewidth=2)
 
 # Personalización de la gráfica
-plt.title('ALGORITMOS RECURSIVOS (CASO PROMEDIO)')
+plt.title('ALGORITMOS RECURSIVOS (MEJOR CASO)')
 plt.xlabel('Cantidad de elementos [n]')
 plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
@@ -42,4 +42,4 @@ plt.grid(True)  # Mostrar la cuadrícula
 #plt.xscale('log')  # Escala logarítmica en el eje X si fuera necesario
 #plt.show()
 
-guardar_grafica('graficas', "quick-merge-promedio")
+guardar_grafica('graficas', "quick-merge-mejor")
