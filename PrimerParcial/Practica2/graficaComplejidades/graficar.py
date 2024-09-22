@@ -39,7 +39,7 @@ plt.xlabel('Cantidad de elementos [n]')
 plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
 plt.grid(True)  # Mostrar la cuadrícula
-#plt.xscale('log')  # Escala logarítmica en el eje X si fuera necesario
+# plt.xscale('log')  # Escala logarítmica en el eje X si fuera necesario
 #plt.show()
 
 guardar_grafica('graficas', "quick-merge-mejor")
