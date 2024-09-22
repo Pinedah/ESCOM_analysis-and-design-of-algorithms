@@ -11,6 +11,13 @@ def leer_datos(archivo):
             y.append(float(datos[1]))
     return x, y
 
+# Función para guardar la gráfica
+def guardar_grafica(ruta_guardado, nombre_archivo):
+    # Crear la ruta completa incluyendo el nombre del archivo
+    ruta_completa = f"{ruta_guardado}/{nombre_archivo}.png"
+    plt.savefig(ruta_completa, format='png', dpi=300)
+    print(f"Gráfica guardada en: {ruta_completa}")
+
 # Archivos txt con los datos
 merge = 'merge.txt' # quick
 # casoPromedio = 'casoPromedio.txt'
