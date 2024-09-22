@@ -19,27 +19,27 @@ def guardar_grafica(ruta_guardado, nombre_archivo):
     print(f"Gráfica guardada en: {ruta_completa}")
 
 # Archivos txt con los datos
-merge = 'merge.txt' # quick
-#casoPromedio = 'casoPromedio.txt'
-quick = 'quick.txt' # merge
+peorCaso = 'peorCaso.txt' # mejorCaso
+casoPromedio = 'casoPromedio.txt'
+mejorCaso = 'mejorCaso.txt' # peorCaso
 
 # Leer los datos de los archivos
-x_peor, y_peor = leer_datos(merge)
-#x_promedio, y_promedio = leer_datos(casoPromedio)
-x_mejor, y_mejor = leer_datos(quick)
+x_peor, y_peor = leer_datos(peorCaso)
+x_promedio, y_promedio = leer_datos(casoPromedio)
+x_mejor, y_mejor = leer_datos(mejorCaso)
 
 # Graficar los datos con marcadores más visibles
-plt.plot(x_peor, y_peor, label='Merge Sort', marker='o', markersize=8, linestyle='-', linewidth=2)
-#plt.plot(x_promedio, y_promedio, label='Caso Promedio', marker='s', markersize=8, linestyle='-', linewidth=2)
-plt.plot(x_mejor, y_mejor, label='quick Sort', marker='^', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_peor, y_peor, label='Peor Caso', marker='o', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_promedio, y_promedio, label='Caso Promedio', marker='s', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_mejor, y_mejor, label='Mejor Caso', marker='^', markersize=8, linestyle='-', linewidth=2)
 
 # Personalización de la gráfica
-plt.title('ALGORITMOS RECURSIVOS (PEOR CASO)')
+plt.title('QUICK SORT')
 plt.xlabel('Cantidad de elementos [n]')
 plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
 plt.grid(True)  # Mostrar la cuadrícula
 # plt.xscale('log')  # Escala logarítmica en el eje X si fuera necesario
-#plt.show()
+plt.show()
 
-guardar_grafica('graficas', "quick-merge-peor")
+guardar_grafica('graficas', "quick-sort")
