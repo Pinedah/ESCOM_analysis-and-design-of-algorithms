@@ -10,22 +10,34 @@ void llenarArrayPeorCaso(int *, int);
 void llenarArrayMejorCaso(int *, int);
 
 int main() {
-        int n = 10000000;
-        int *arr = malloc(n * sizeof(int));
-        //llenarArray(arr, n);
-        //llenarArrayPeorCaso(arr, n);
-        llenarArrayMejorCaso(arr, n);
 
-        //printf("")
+    double mejor, promedio, sumatoria;
+    for(int n = 1000; n<=10000000; n*=10){
+        mejor = 10000, promedio = 0, sumatoria = 0;
 
-        clock_t start, end;
-        start = clock();
-        quicksort(arr, 0, n - 1);
-        end = clock();
-        //generarArchivos(arr,n);
-        double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
-        printf("Tiempo tomado para ordenar %d numeros: %f segundos\n", n, time_taken);
-        free(arr);
+        for(int i = 0; i<5; i++){
+            int *arr = malloc(n * sizeof(int));
+            llenarArray(arr, n);
+
+            clock_t start, end;
+            start = clock();
+            quicksort(arr, 0, n - 1);
+            end = clock();
+
+            double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
+            printf("Tiempo tomado para ordenar %d numeros: %f segundos\n", n, time_taken);
+            free(arr);
+
+            sumatoria += time_taken;
+            if(time_taken < mejor){
+                mejor = time_taken;
+            }
+        }
+        promedio = sumatoria /5;
+        printf("promedio para %d : %f ", n, promedio);
+        printf("|| mejor : %f \n\n", mejor);
+    }
+
     return 0;
 }
 
