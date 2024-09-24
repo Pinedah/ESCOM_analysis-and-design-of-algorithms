@@ -1,60 +1,56 @@
 
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
+int busquedaBinaria(int *, int, int, int);
+void llenarArray(int *, int); 
 
 int main(){
 
+    int n = 10000000;
+    int *arr = malloc(n * sizeof(int));
+    llenarArray(arr, n);
+    int buscar = 6992;
+
+    clock_t start, end;
+    start = clock();
+    int indice = busquedaBinaria(arr, buscar, 0, n-1);
+    end = clock();
+    double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
+    printf("\nTiempo tomado para buscar el numero %d en %d datos fue: %.10f segundos\n", buscar, n, time_taken);
     
+    indice == -1 ? printf("No se encontro el valor en el arreglo\n\n") : printf("El valor esta en la posicion %d\n\n", indice);
 
     return 0;
 }
 
-/*
+int busquedaBinaria(int *arr, int valor, int menor, int mayor){
+    int medio;
+    while(menor <= mayor){
+        medio = menor + (mayor - menor) / 2;
+        
+        if(*(arr + medio) == valor)
+            return medio;
 
-<?php
-// PHP program to implement
-// iterative Binary Search
-
-// An iterative binary search 
-// function
-function binarySearch($arr, $low, 
-                      $high, $x)
-{
-    while ($low <= $high)
-    {
-        $mid = $low + ($high - $low) / 2;
-
-        // Check if x is present at mid
-        if ($arr[$mid] == $x)
-            return floor($mid);
-
-        // If x greater, ignore
-        // left half
-        if ($arr[$mid] < $x)
-            $low = $mid + 1;
-
-        // If x is smaller, 
-        // ignore right half
+        if (*(arr + medio) < valor)
+            menor = medio + 1;
         else
-            $high = $mid - 1;
+            mayor = medio - 1;
     }
-
-    // If we reach here, then 
-    // element was not present
     return -1;
 }
 
-// Driver Code
-$arr = array(2, 3, 4, 10, 40);
-$n = count($arr);
-$x = 10;
-$result = binarySearch($arr, 0, 
-                       $n - 1, $x);
-if(($result == -1))
-echo "Element is not present in array";
-else
-echo "Element is present at index ", 
-                            $result;
+void llenarArray(int *arr, int longi) {
 
-?>
+    char filename[20];
+    sprintf(filename, "sorted%d.txt", longi);
+    FILE *file = fopen(filename, "r");
 
-*/
+    if (file == NULL){
+        printf("No se leyó nada\n");
+        exit(0);
+    }
+    for(int i = 0; i<longi; i++)
+        fscanf(file,"%d", &arr[i]);
+}
