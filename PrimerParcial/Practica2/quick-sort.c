@@ -37,6 +37,10 @@ void quicksort(int *x, int lb, int ub) {
 }
 
 void partition(int *x, int lb, int ub, int* pj) {
+    int random_index = lb + rand() % (ub - lb + 1);
+    int temp = *(x + lb);
+    *(x + lb) = *(x + random_index);
+    *(x + random_index) = temp;
     int a = *(x+lb);
     int up = ub;
     int down = lb;
