@@ -10,7 +10,11 @@ void llenarArrayPeorCaso(int *, int);
 void llenarArrayMejorCaso(int *, int);
 
 int main() {
+<<<<<<< HEAD
         int n = 10000000;
+=======
+        int n = 1000000;
+>>>>>>> 06526c5527ddab0f93d0289617ee5d4e493a8556
         int *arr = malloc(n * sizeof(int));
         llenarArray(arr, n);
         //llenarArrayPeorCaso(arr, n);
@@ -52,9 +56,9 @@ void partition(int *x, int lb, int ub, int* pj) {
             up--;
         }
         if (down < up) {
-            int temp_swap = *(x + down);
-            *(x + down) = *(x + up);
-            *(x + up) = temp_swap;
+            *(x+down) ^= *(x+up);
+            *(x+up) ^= *(x+down);
+            *(x+down) ^= *(x+up);
         }
     }
     *(x+lb) = *(x+up);
@@ -73,16 +77,16 @@ void llenarArray(int *arr, int longi) {
 }
 
 void llenarArrayPeorCaso(int *arr, int longi) {
-    int *ptr = arr;
+    int *ptr = arr;  
     for (long unsigned int i = longi; i > 0; i--) {
-        *ptr = i;
-        ptr++;
+        *ptr = i;  
+        ptr++;  
     }
 }
 void llenarArrayMejorCaso(int *arr, int longi) {
-    int *ptr = arr;
+    int *ptr = arr;  
     for (int i = 1; i <= longi; i++) {
-        *ptr = i;
+        *ptr = i;  
         ptr++;
     }
 }
