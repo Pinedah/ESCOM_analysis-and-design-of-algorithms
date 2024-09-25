@@ -10,7 +10,7 @@ void llenarArrayPeorCaso(int *, int);
 void llenarArrayMejorCaso(int *, int);
 
 int main() {
-        int n = 10000;
+        int n = 10000000;
         int *arr = malloc(n * sizeof(int));
         llenarArray(arr, n);
         //llenarArrayPeorCaso(arr, n);
@@ -19,7 +19,7 @@ int main() {
         start = clock();
         quicksort(arr, 0, n - 1);
         end = clock();
-        generarArchivos(arr,n);
+        //generarArchivos(arr,n);
         double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
         printf("Tiempo tomado para ordenar %d numeros: %f segundos\n", n, time_taken);
         free(arr);
