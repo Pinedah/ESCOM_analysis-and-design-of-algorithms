@@ -10,11 +10,7 @@ void llenarArrayPeorCaso(int *, int);
 void llenarArrayMejorCaso(int *, int);
 
 int main() {
-<<<<<<< HEAD
         int n = 10000000;
-=======
-        int n = 1000000;
->>>>>>> 06526c5527ddab0f93d0289617ee5d4e493a8556
         int *arr = malloc(n * sizeof(int));
         llenarArray(arr, n);
         //llenarArrayPeorCaso(arr, n);
