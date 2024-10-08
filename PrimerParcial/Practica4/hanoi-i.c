@@ -3,13 +3,13 @@
 #include <math.h> 
 #include <stdlib.h> 
 #include <limits.h> 
+#include <time.h>
 
 // A structure to represent a stack 
-struct Stack 
-{ 
-unsigned capacity; 
-int top; 
-int *array; 
+struct Stack { 
+	unsigned capacity; 
+	int top; 
+	int *array; 
 }; 
 
 // function to create a stack of given capacity. 
@@ -56,8 +56,7 @@ int pop(struct Stack* stack)
 
 void moveDisk(char fromPeg, char toPeg, int disk) 
 { 
-	printf("Mueve el bloque %d desde \'%c\' hasta \'%c\'\n", 
-		disk, fromPeg, toPeg); 
+	//printf("Mueve el bloque %d desde \'%c\' hasta \'%c\'\n", disk, fromPeg, toPeg); 
 }
 
 void moveDisksBetweenTwoPoles(struct Stack *src, struct Stack *dest, char s, char d) 
@@ -130,16 +129,20 @@ void tohIterative(int num_of_disks, struct Stack *src, struct Stack *aux, struct
 
 int main() 
 { 
-	
-	unsigned num_of_disks = 3; 
-
+	int num_of_disks; 
+	printf("Las clavijas son A B C\n"); 
+    printf("Escribe el numero de discos con los que quiere trabajar: ");
+    scanf("%d", &num_of_disks);
 	struct Stack *src, *dest, *aux; 
-
-
 	src = createStack(num_of_disks); 
 	aux = createStack(num_of_disks); 
 	dest = createStack(num_of_disks); 
 
-	tohIterative(num_of_disks, src, aux, dest); 
+    clock_t start, end;
+    start = clock();
+    tohIterative(num_of_disks, src, aux, dest); 
+    end = clock();
+    double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
+    printf("\nTiempo tomado fue: %.10f segundos\n", time_taken);
 	return 0; 
 } 
