@@ -8,7 +8,7 @@ void llenarArray(int *, int);
 
 int main(){
 
-    int n = 10000000;
+    int n = 100000;
     int *arr = malloc(n * sizeof(int));
     llenarArray(arr, n);
     int buscar = 6992;
