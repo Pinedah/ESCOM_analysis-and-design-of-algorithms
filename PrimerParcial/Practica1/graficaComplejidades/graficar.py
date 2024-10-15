@@ -12,22 +12,22 @@ def leer_datos(archivo):
     return x, y
 
 # Archivos txt con los datos
-peorCaso = 'peorCaso.txt'
-casoPromedio = 'casoPromedio.txt'
-mejorCaso = 'mejorCaso.txt'
+Iterativo = 'Iterativo.txt'
+Recursivo = 'Recursivo.txt'
+#mejorCaso = 'mejorCaso.txt'
 
 # Leer los datos de los archivos
-x_peor, y_peor = leer_datos(peorCaso)
-x_promedio, y_promedio = leer_datos(casoPromedio)
-x_mejor, y_mejor = leer_datos(mejorCaso)
+x_iter, y_iter = leer_datos(Iterativo)
+x_recur, y_recur = leer_datos(Recursivo)
+#x_mejor, y_mejor = leer_datos(mejorCaso)
 
 # Graficar los datos con marcadores más visibles
-plt.plot(x_peor, y_peor, label='Peor Caso', marker='o', markersize=8, linestyle='-', linewidth=2)
-plt.plot(x_promedio, y_promedio, label='Caso Promedio', marker='s', markersize=8, linestyle='-', linewidth=2)
-plt.plot(x_mejor, y_mejor, label='Mejor Caso', marker='^', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_iter, y_iter, label='factorial Iterativo', marker='o', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_recur, y_recur, label='factorial Recursivo', marker='s', markersize=8, linestyle='-', linewidth=2)
+#plt.plot(x_mejor, y_mejor, label='Mejor Caso', marker='^', markersize=8, linestyle='-', linewidth=2)
 
 # Personalización de la gráfica
-plt.title('SELECTION SORT')
+plt.title('FACTORIAL')
 plt.xlabel('Cantidad de elementos [n]')
 plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
