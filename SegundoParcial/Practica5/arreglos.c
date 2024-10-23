@@ -38,7 +38,7 @@ int main(){
     return 0;
 }
 void llenarArray(int *arr, int longi) {
-    FILE *file = fopen("numeros10millones.txt", "r");
+    FILE *file = fopen("../../PrimerParcial/Practica2/numeros10millones.txt", "r");
 
     if (file == NULL){
         printf("No se leyo nada\n");
