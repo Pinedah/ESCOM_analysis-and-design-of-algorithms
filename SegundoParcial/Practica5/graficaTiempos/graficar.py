@@ -37,6 +37,6 @@ plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
 plt.grid(True)  # Mostrar la cuadrícula
 # plt.xscale('log')  # Escala logarítmica en el eje X si fuera necesario
-#vplt.show()
+# vplt.show()
 
 guardar_grafica('graficas', "busqueda-max-min")
