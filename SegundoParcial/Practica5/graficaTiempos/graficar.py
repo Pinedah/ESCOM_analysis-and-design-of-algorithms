@@ -19,22 +19,19 @@ def guardar_grafica(ruta_guardado, nombre_archivo):
     print(f"Gráfica guardada en: {ruta_completa}")
 
 # Archivos txt con los datos
-mejorCaso = 'mejorCaso.txt' # peorCaso
-casoPromedio = 'casoPromedio.txt'
-peorCaso = 'peorCaso.txt' # mejorCaso
+iterativa = 'iterativa.txt' # recursiva
+recursiva = 'recursiva.txt' # iterativa
 
 # Leer los datos de los archivos
-x_peor, y_peor = leer_datos(peorCaso)
-x_promedio, y_promedio = leer_datos(casoPromedio)
-x_mejor, y_mejor = leer_datos(mejorCaso)
+x_iterativa, y_iterativa = leer_datos(iterativa)
+x_recursiva, y_recursiva = leer_datos(recursiva)
 
 # Graficar los datos con marcadores más visibles
-plt.plot(x_peor, y_peor, label='Peor Caso', marker='o', markersize=8, linestyle='-', linewidth=2)
-plt.plot(x_promedio, y_promedio, label='Caso Promedio', marker='s', markersize=8, linestyle='-', linewidth=2)
-plt.plot(x_mejor, y_mejor, label='Mejor Caso', marker='^', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_iterativa, y_iterativa, label='Forma Iterativa', marker='o', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_recursiva, y_recursiva, label='Forma Recursiva', marker='^', markersize=8, linestyle='-', linewidth=2)
 
 # Personalización de la gráfica
-plt.title('BUSQUEDA LINEAL')
+plt.title('BUSCAR ELEMENTOS MÁXIMO Y MÍNIMO')
 plt.xlabel('Cantidad de elementos [n]')
 plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
@@ -42,4 +39,4 @@ plt.grid(True)  # Mostrar la cuadrícula
 # plt.xscale('log')  # Escala logarítmica en el eje X si fuera necesario
 #vplt.show()
 
-guardar_grafica('graficas', "busqueda-secuencial")
+guardar_grafica('graficas', "busqueda-max-min")
