@@ -9,7 +9,7 @@ void MaxMin_R(int*,int,int,int*,int*);
 
 
 int main(){
-    int n = 10000000, x;
+    int n = 100000, x;
     int *arr = malloc(n * sizeof(int));
     llenarArray(arr, n);
     
