@@ -4,10 +4,10 @@
 
 void hanoi(int num, char origen, char destino, char auxiliar) {
     if (num == 1) {
-      //  printf("Mueve el bloque %d desde %c hasta %c \n", num, origen, destino);
+        //printf("Mueve el bloque %d desde %c hasta %c \n", num, origen, destino);
     } else {
         hanoi(num - 1, origen, auxiliar, destino);
-      //  printf("Mueve el bloque %d desde %c hasta %c \n", num, origen, destino);
+        //printf("Mueve el bloque %d desde %c hasta %c \n", num, origen, destino);
         hanoi(num - 1, auxiliar, destino, origen);
     }
 }
