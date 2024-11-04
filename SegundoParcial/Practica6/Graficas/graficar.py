@@ -17,22 +17,22 @@ def guardar_grafica(ruta_guardado, nombre_archivo):
     plt.savefig(ruta_completa, format='png', dpi=300)
     print(f"Gráfica guardada en: {ruta_completa}")
 # Archivos txt con los datos
-Kadanne = 'Kadanne.txt'
+Kadane = 'Kadane.txt'
 DivideYVenceras = 'DivideYVenceras.txt'
 #mejorCaso = 'mejorCaso.txt'
 
 # Leer los datos de los archivos
-x_iter, y_iter = leer_datos(Kadanne)
+x_iter, y_iter = leer_datos(Kadane)
 x_recur, y_recur = leer_datos(DivideYVenceras)
 #x_mejor, y_mejor = leer_datos(mejorCaso)
 
 # Graficar los datos con marcadores más visibles
-plt.plot(x_iter, y_iter, label='Sum Max Kadanne', marker='o', markersize=8, linestyle='-', linewidth=2)
-plt.plot(x_recur, y_recur, label='Sum Max Divide y Venceras', marker='^', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_iter, y_iter, label='Kadane', marker='o', markersize=8, linestyle='-', linewidth=2)
+plt.plot(x_recur, y_recur, label='Divide y Venceras', marker='^', markersize=8, linestyle='-', linewidth=2)
 #plt.plot(x_mejor, y_mejor, label='Mejor Caso', marker='^', markersize=8, linestyle='-', linewidth=2)
 
 # Personalización de la gráfica
-plt.title('Suma Maxima En subArreglo')
+plt.title('Suma maxima en un subarreglo')
 plt.xlabel('Cantidad de elementos [n]')
 plt.ylabel('Tiempo [s]')
 plt.legend()  # Mostrar leyendas
