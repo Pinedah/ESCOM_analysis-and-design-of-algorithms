@@ -1,106 +1,114 @@
-// C++ implementation of Karatsuba algorithm for bit string multiplication.
-#include<iostream>
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
-using namespace std;
-
-// FOLLOWING TWO FUNCTIONS ARE COPIED FROM http://goo.gl/q0OhZ
-// Helper method: given two unequal sized bit strings, converts them to
-// same length by adding leading 0s in the smaller string. Returns the
-// the new length
-int makeEqualLength(string &str1, string &str2)
-{
-    int len1 = str1.size();
-    int len2 = str2.size();
-    if (len1 < len2)
-    {
-        for (int i = 0 ; i < len2 - len1 ; i++)
-            str1 = '0' + str1;
+// Función auxiliar para hacer que ambas cadenas tengan la misma longitud
+int makeEqualLength(char **str1, char **str2) {
+    int len1 = strlen(*str1);
+    int len2 = strlen(*str2);
+    if (len1 < len2) {
+        char *temp = (char *)malloc(len2 + 1);
+        for (int i = 0; i < len2 - len1; i++)
+            temp[i] = '0';
+        strcpy(temp + (len2 - len1), *str1);
+        free(*str1);
+        *str1 = temp;
         return len2;
+    } else if (len1 > len2) {
+        char *temp = (char *)malloc(len1 + 1);
+        for (int i = 0; i < len1 - len2; i++)
+            temp[i] = '0';
+        strcpy(temp + (len1 - len2), *str2);
+        free(*str2);
+        *str2 = temp;
     }
-    else if (len1 > len2)
-    {
-        for (int i = 0 ; i < len1 - len2 ; i++)
-            str2 = '0' + str2;
-    }
-    return len1; // If len1 >= len2
+    return len1;
 }
 
-// The main function that adds two bit sequences and returns the addition
-string addBitStrings( string first, string second )
-{
-    string result;  // To store the sum bits
+// Función para sumar dos cadenas de bits
+char *addBitStrings(char *first, char *second) {
+    makeEqualLength(&first, &second);
+    int length = strlen(first);
+    char *result = (char *)malloc(length + 2);
+    result[length + 1] = '\0';
+    int carry = 0;
 
-    // make the lengths same before adding
-    int length = makeEqualLength(first, second);
-    int carry = 0;  // Initialize carry
-
-    // Add all bits one by one
-    for (int i = length-1 ; i >= 0 ; i--)
-    {
-        int firstBit = first.at(i) - '0';
-        int secondBit = second.at(i) - '0';
-
-        // boolean expression for sum of 3 bits
-        int sum = (firstBit ^ secondBit ^ carry)+'0';
-
-        result = (char)sum + result;
-
-        // boolean expression for 3-bit addition
-        carry = (firstBit&secondBit) | (secondBit&carry) | (firstBit&carry);
+    for (int i = length - 1; i >= 0; i--) {
+        int firstBit = first[i] - '0';
+        int secondBit = second[i] - '0';
+        int sum = (firstBit ^ secondBit ^ carry);
+        result[i + 1] = sum + '0';
+        carry = (firstBit & secondBit) | (secondBit & carry) | (firstBit & carry);
     }
 
-    // if overflow, then add a leading 1
-    if (carry)  result = '1' + result;
-
-    return result;
+    if (carry) {
+        result[0] = '1';
+        return result;
+    } else {
+        memmove(result, result + 1, length + 1);
+        return result;
+    }
 }
 
-// A utility function to multiply single bits of strings a and b
-int multiplyiSingleBit(string a, string b)
-{  return (a[0] - '0')*(b[0] - '0');  }
+// Multiplicación de un solo bit
+int multiplyiSingleBit(char *a, char *b) {
+    return (a[0] - '0') * (b[0] - '0');
+}
 
-// The main function that multiplies two bit strings X and Y and returns
-// result as long integer
-long int multiply(string X, string Y)
-{
-    // Find the maximum of lengths of x and Y and make length
-    // of smaller string same as that of larger string
-    int n = makeEqualLength(X, Y);
+// Función principal para multiplicar dos cadenas de bits
+long int multiply(char *X, char *Y) {
+    makeEqualLength(&X, &Y);
+    int n = strlen(X);
 
-    // Base cases
     if (n == 0) return 0;
     if (n == 1) return multiplyiSingleBit(X, Y);
 
-    int fh = n/2;   // First half of string, floor(n/2)
-    int sh = (n-fh); // Second half of string, ceil(n/2)
+    int fh = n / 2;
+    int sh = n - fh;
 
-    // Find the first half and second half of first string.
-    // Refer http://goo.gl/lLmgn for substr method
-    string Xl = X.substr(0, fh);
-    string Xr = X.substr(fh, sh);
+    char *Xl = (char *)malloc(fh + 1);
+    strncpy(Xl, X, fh);
+    Xl[fh] = '\0';
+    char *Xr = X + fh;
 
-    // Find the first half and second half of second string
-    string Yl = Y.substr(0, fh);
-    string Yr = Y.substr(fh, sh);
+    char *Yl = (char *)malloc(fh + 1);
+    strncpy(Yl, Y, fh);
+    Yl[fh] = '\0';
+    char *Yr = Y + fh;
 
-    // Recursively calculate the three products of inputs of size n/2
     long int P1 = multiply(Xl, Yl);
     long int P2 = multiply(Xr, Yr);
-    long int P3 = multiply(addBitStrings(Xl, Xr), addBitStrings(Yl, Yr));
+    char *sumX = addBitStrings(Xl, Xr);
+    char *sumY = addBitStrings(Yl, Yr);
+    long int P3 = multiply(sumX, sumY);
 
-    // Combine the three products to get the final result.
-    return P1*(1<<(2*sh)) + (P3 - P1 - P2)*(1<<sh) + P2;
+    free(Xl);
+    free(Yl);
+    free(sumX);
+    free(sumY);
+
+    return P1 * (1L << (2 * sh)) + (P3 - P1 - P2) * (1L << sh) + P2;
 }
 
-// Driver program to test above functions
-int main()
-{
-    printf ("%ld\n", multiply("1100", "1010"));
-    printf ("%ld\n", multiply("110", "1010"));
-    printf ("%ld\n", multiply("11", "1010"));
-    printf ("%ld\n", multiply("1", "1010"));
-    printf ("%ld\n", multiply("0", "1010"));
-    printf ("%ld\n", multiply("111", "111"));
-    printf ("%ld\n", multiply("11", "11"));
+// Programa principal
+int main() {
+
+    char num1[30], num2[30];
+    printf("Ingrese el primer numero: ");
+    scanf("%s", num1);
+    printf("Ingrese el segundo numero: ");
+    scanf("%s", num2);
+
+    clock_t start, end;
+
+    start = clock();
+    long int resultado = multiply(num1, num2);
+    end = clock();
+    printf("El resultado de la multiplicacion es: %ld\n", resultado);
+
+    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("El tiempo tomado es de %.10f", time_taken);
+
+    return 0;
 }

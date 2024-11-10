@@ -2,14 +2,13 @@
 #include <float.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 // Una estructura para representar un Punto en un plano 2D
 typedef struct {
     int x, y;
 } Punto;
 
-/* Las siguientes dos funciones son necesarias para la función de biblioteca qsort().
-Referencia: http://www.cplusplus.com/reference/clibrary/cstdlib/qsort/ */
 
 // Necesaria para ordenar el arreglo de puntos según la coordenada X
 int compararX(const void* a, const void* b) {
@@ -103,10 +102,37 @@ float masCercano(Punto P[], int n) {
     return masCercanoUtil(P, n);
 }
 
-// Programa principal para probar las funciones anteriores
+void llenarArraydePuntos(Punto *arr, int longi) {
+    for(int i = 0; i < longi; i++) {
+        arr[i].x = rand() % 50;
+        arr[i].y = rand() % 50;
+    }
+}
+void recorrer(Punto *arr, int longi) {
+    for(int i = 0; i < longi; i++) {
+        printf("(%d, %d) ", arr[i].x, arr[i].y);
+    }
+    printf("\n");
+}
+
 int main() {
-    Punto P[] = {{2, 3}, {12, 30}, {40, 50}, {5, 1}, {12, 10}, {3, 4}};
-    int n = sizeof(P) / sizeof(P[0]);
-    printf("La distancia mínima es %f ", masCercano(P, n));
+    srand(time(NULL));
+    int n;
+    printf("Ingrese la cantidad de puntos: ");
+    scanf("%d", &n);
+    Punto *P = malloc(n * sizeof(Punto));
+    llenarArraydePuntos(P, n);
+    //recorrer(P,n);
+
+
+    clock_t start, end;
+    start = clock();
+    float resultado = masCercano(P, n);
+    end = clock();
+    printf("La distancia minima es %f ", resultado);
+    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("El tiempo tomado es de %.10f", time_taken);
+    free(P);
+
     return 0;
 }

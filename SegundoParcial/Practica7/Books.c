@@ -1,6 +1,8 @@
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 // Funcion que valida si el valor actual es factible o no
 bool isPossible(int arr[], int n, int m, int curr_min)
@@ -81,21 +83,40 @@ int findPages(int arr[], int n, int m)
     return result;
 }
 
+void llenarArray(int *arr, int longi) {
+    int *ptr;
+    int i;
+    for(ptr=arr; ptr < &arr[longi]; ptr++) {
+        *ptr = (rand() % 100) + 10;
+    }
+}
+void recorrer(int *arr, int longi) {
+    int *ptr;
+    for(ptr=arr; ptr < &arr[longi]; ptr++) {
+        printf("%d ", *ptr);
+    }
+    printf("\n");
+}
 
 int main()
 {
     //Numero de paginas en los libros
-    int arr[50] = {
-    10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
-    110, 120, 130, 140, 150, 160, 170, 180, 190, 200,
-    210, 220, 230, 240, 250, 260, 270, 280, 290, 300,
-    310, 320, 330, 340, 350, 360, 370, 380, 390, 400,
-    410, 420, 430, 440, 450, 460, 470, 480, 490, 500
-    };
-    int n = sizeof arr / sizeof arr[0];
+    int n;
+    printf("Ingrese la cantidad de libros: ");
+    scanf("%d", &n);
+    int *arr = malloc(n * sizeof(int));
+    llenarArray(arr, n);
     int m = 10;//numero de estudiantes
+    recorrer(arr,n);
+    clock_t start, end;
 
-    printf("Minimum number of pages = %d\n",
-           findPages(arr, n, m));
+    start = clock();
+    int a = findPages(arr, n, m);
+    end = clock();
+
+    printf("Minimo numero de paginas = %d\n", a );
+    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("El tiempo tomado es de %.10f", time_taken);
+    free(arr);
     return 0;
 }
