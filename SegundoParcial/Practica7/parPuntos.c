@@ -122,7 +122,7 @@ int main() {
     scanf("%d", &n);
     Punto *P = malloc(n * sizeof(Punto));
     llenarArraydePuntos(P, n);
-    //recorrer(P,n);
+    recorrer(P,n);
 
 
     clock_t start, end;
