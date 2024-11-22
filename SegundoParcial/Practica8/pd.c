@@ -67,9 +67,10 @@ int knapSack(int W, int wt[], int val[], int n) {
     printf("\n");
 
     printf("S: ");
-    for (int i = 0; i < n; i++) 
-        if (selected[i] == 1) {
+    for (int i = 0; i < n; i++){
+        if (selected[i] == 1) 
             printf("\t%d ", wt[i]); 
+        else
             printf("\t0 ");
         }
     
@@ -84,11 +85,11 @@ int knapSack(int W, int wt[], int val[], int n) {
     return result;
 }
 
-// Código principal
+
 int main() {
     int profit[] = {60, 60, 20, 30};
     int weight[] = {10, 10, 100, 120};
-    int W = 100;
+    int W = 200;
     int n = sizeof(profit) / sizeof(profit[0]);
 
     printf("Beneficio maximo: %d\n", knapSack(W, weight, profit, n));
