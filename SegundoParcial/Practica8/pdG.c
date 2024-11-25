@@ -12,7 +12,7 @@ int main(){
     int W;
     float *sol;
     float benefFinal=0.0;
-    Item arr[] = { { 60, 10 }, { 60, 10 }, { 20, 100 },{ 30, 120 } };
+    Item arr[] = { { 40, 200 }, { 20, 100 }, { 30, 120 },{ 40, 200 } };
     int N = sizeof(arr) / sizeof(*(arr));
     sol = (float*)malloc(N*sizeof(float));
     printf("Introduce la capacidad de la mochila: ");
