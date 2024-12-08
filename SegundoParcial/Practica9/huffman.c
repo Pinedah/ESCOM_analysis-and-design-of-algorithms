@@ -1,6 +1,7 @@
 // C program for Huffman Coding 
 #include <stdio.h> 
 #include <stdlib.h> 
+#include "Hash.h"
   
 // This constant can be avoided by explicitly 
 // calculating height of Huffman Tree 
@@ -290,16 +291,76 @@ void HuffmanCodes(char data[], int freq[], int size)
     printCodes(root, arr, top); 
 } 
   
-// Driver code 
-int main() 
-{ 
-  
-    char arr[] = { 'a', 'b', 'c', 'd', 'e', 'f' }; 
-    int freq[] = { 5, 9, 12, 13, 16, 45 }; 
-  
-    int size = sizeof(arr) / sizeof(arr[0]); 
-  
+int main() {
+    t_tam = 26;
+    Tabla_Hash = (Nodo **)calloc(t_tam, sizeof(Nodo *));
+    char *palabra = NULL;
+    char *arr = NULL;       
+    int *freq = NULL; 
+    size_t palabra_len = 0;
+    size_t arr_len = 0;
+    char c;
+
+    printf("Ingrese una palabra: ");
+    while ((c = getchar()) != '\n'  && c != EOF) {
+        palabra = realloc(palabra, (palabra_len + 1) * sizeof(char));
+        if (!palabra) {
+            printf("Error al asignar memoria.\n");
+            exit(1);
+        }
+        palabra[palabra_len++] = c;
+    }
+    palabra[palabra_len] = '\0';
+    for (int i = 0; i < strlen(palabra); i++) {
+        char letra = tolower(palabra[i]);
+        Nodo *nodoExistente = Buscar(letra);
+        if (nodoExistente) {
+            nodoExistente->valor++; 
+        } else {
+            insertar(letra, 1);
+        }
+
+        int encontrado = 0;
+        for (int j = 0; j < arr_len; j++) {
+            if (arr[j] == letra) {
+                freq[j]++;
+                encontrado = 1;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            arr = realloc(arr, (arr_len + 1) * sizeof(char));
+            freq = realloc(freq, (arr_len + 1) * sizeof(int));
+            if (!arr || !freq) {
+                free(arr);
+                free(freq);
+                printf("Error al asignar memoria.\n");
+                exit(1);
+            }
+            arr[arr_len] = letra;
+            freq[arr_len] = 1;
+            arr_len++;
+        }
+    }
+    for (int i = 0; i < arr_len; i++) {
+        printf("Letra: %c, Frecuencia: %d\n", arr[i], freq[i]);
+    }
+
+    free(palabra);
+
+    for (int i = 0; i < t_tam; i++) {
+        Nodo *p = Tabla_Hash[i];
+        while (p) {
+            Nodo *temp = p;
+            p = p->ptrsig;
+            free(temp);
+        }
+    }
+    free(Tabla_Hash);
+    int size = arr_len;
     HuffmanCodes(arr, freq, size); 
-  
-    return 0; 
+    free(arr);
+    free(freq);
+    return 0;
 }
