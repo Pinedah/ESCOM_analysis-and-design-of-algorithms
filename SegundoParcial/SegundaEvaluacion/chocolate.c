@@ -1,11 +1,27 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include "Hash.h"
 
 
+struct Nodo2{
+    int dato;
+    struct Nodo2 *ptrSig;};
 
-int posiblesCortes(int cortes, int longitud, int demanda, int queCortes){
+struct Nodo2* crearNodo(int elem);
+void meterNodo(struct Nodo2 *ptrRef, int elem); //no va a regresar nada bc ptrRef
+int recorrerLista(struct Nodo2* ptrRef, int valorBuscado);
 
+
+int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo2 *queCortes, int indice, struct Nodo* Tabla_Hash){
+    
+    
+
+    int corte = posiblesCortes(cortes, longitud - cortes[indice], demanda - 1, queCortes, indice, Tabla_Hash); 
+    
+    if(corte){
+        meterNodo(queCortes, cortes[indice]);
+    }
 
 }
 
@@ -13,9 +29,81 @@ int main(){
 
     int cortes[5] = {4, 6, 8, 10, 12};
 
+    struct Nodo2 *miptrRef;
+    int mielem;
+    miptrRef=crearNodo(-1000);
+
+    int longitud, demanda;
+    printf("Ingrese la longitud de la barra de chocolate: ");
+    scanf("%d", &longitud);
+    printf("Ingrese la demanda (cantidad de barras deseadas): ");
+    scanf("%d", &demanda);
+
+
+    
+    t_tam = 5;
+    Tabla_Hash = (Nodo **)calloc(t_tam, sizeof(Nodo *));
+
+    int flag = posiblesCortes(cortes, longitud, demanda, miptrRef, 0, Tabla_Hash);
+
+
+
+    if(flag){
+        printf("Es posible cortar la barra de longitud %d con %d barras distintas", longitud, demanda);
+        int a = recorrerLista(miptrRef, 12);
+        int b = recorrerLista(miptrRef, 10);
+        int c = recorrerLista(miptrRef, 8);
+        int d = recorrerLista(miptrRef, 6);
+        int e = recorrerLista(miptrRef, 4);
+
+        printf("Se ocuparon %d barras de 12", a);
+        printf("Se ocuparon %d barras de 10", b);
+        printf("Se ocuparon %d barras de 8", c);
+        printf("Se ocuparon %d barras de 6", d);
+        printf("Se ocuparon %d barras de 4", e);
+
+    }else{
+        printf("NO es posible cortar %d barras para una barra de longitud %d", demanda, longitud);
+    }
 
     return 0;
 }
+
+
+struct Nodo2* crearNodo(int elem){
+    struct Nodo2 *ptrN;
+    ptrN=(struct Nodo2*)malloc(sizeof(struct Nodo2));
+    ptrN->dato=elem;
+    ptrN->ptrSig=NULL;
+    return ptrN;
+};
+void meterNodo(struct Nodo2* ptrRef, int elem){
+    struct Nodo2* ptrN1;
+    ptrN1=crearNodo(elem);
+    if(ptrRef->ptrSig==NULL)
+        ptrRef->ptrSig=ptrN1; //creamos Nodo2 de cabecera
+    else
+        ptrN1->ptrSig=ptrRef->ptrSig; //Un nodo comun ahora apunta al Nodo2 de cabecera //!SIEMPRE PRIMER ENLACE DESDE LA DERECHA(del nodo nuevo)
+        ptrRef->ptrSig=ptrN1;
+};
+
+
+
+int recorrerLista(struct Nodo2 *ptrRef, int valorBuscado){
+    struct Nodo2 *ptrRec;
+    int contador;
+    ptrRec=ptrRef->ptrSig;
+    while(ptrRec!=NULL){
+        if (ptrRec->dato == valorBuscado){
+            contador++;
+        }
+        //printf("%d\n", ptrRec->dato);
+        ptrRec=ptrRec->ptrSig;
+    }
+    return contador;
+    //printf("\n");
+};
+
 
 /*
 
