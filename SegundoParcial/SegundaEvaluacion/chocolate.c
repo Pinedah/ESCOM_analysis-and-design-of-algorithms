@@ -3,7 +3,6 @@
 # include <stdlib.h>
 # include "Hash.h"
 
-
 struct Nodo2{
     int dato;
     struct Nodo2 *ptrSig;};
@@ -13,15 +12,39 @@ void meterNodo(struct Nodo2 *ptrRef, int elem); //no va a regresar nada bc ptrRe
 int recorrerLista(struct Nodo2* ptrRef, int valorBuscado);
 
 
-int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo2 *queCortes, int indice, struct Nodo* Tabla_Hash){
-    
-    
-
+int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo2 *queCortes, int indice, Nodo** Tabla_Hash){
+    if(longitud==0 && demanda ==0){
+        return 1;
+    }
+    if(longitud<0 || demanda<0 || indice>= 5){
+        return 0;
+    }
+    key clave; 
+    clave.a[0]=longitud;
+    clave.a[1]=demanda;
+    clave.a[2]=indice;
+    Nodo *nodoExistente = Buscar(clave);
+    if(nodoExistente){
+        return nodoExistente->valor;
+    }
     int corte = posiblesCortes(cortes, longitud - cortes[indice], demanda - 1, queCortes, indice, Tabla_Hash); 
     
     if(corte){
+        key clave2;
+        clave2.a[0]=longitud;
+        clave2.a[1]=demanda;
+        clave2.a[2]=indice;
         meterNodo(queCortes, cortes[indice]);
+        insertar(clave2,1);
+        return 1;
     }
+    int no_usar_corte = posiblesCortes(cortes, longitud, demanda,queCortes,indice+1,Tabla_Hash);
+    key clave3;
+    clave3.a[0]=longitud;
+    clave3.a[1]=demanda;
+    clave3.a[2]=indice;
+    insertar(clave3,no_usar_corte);
+    return no_usar_corte;
 
 }
 
@@ -37,34 +60,29 @@ int main(){
     printf("Ingrese la longitud de la barra de chocolate: ");
     scanf("%d", &longitud);
     printf("Ingrese la demanda (cantidad de barras deseadas): ");
-    scanf("%d", &demanda);
-
-
-    
-    t_tam = 5;
+    scanf("%d", &demanda); 
+    t_tam = 26;
     Tabla_Hash = (Nodo **)calloc(t_tam, sizeof(Nodo *));
-
     int flag = posiblesCortes(cortes, longitud, demanda, miptrRef, 0, Tabla_Hash);
-
-
-
     if(flag){
-        printf("Es posible cortar la barra de longitud %d con %d barras distintas", longitud, demanda);
+        printf("Es posible cortar la barra de longitud %d con %d barras distintas\n", longitud, demanda);
         int a = recorrerLista(miptrRef, 12);
         int b = recorrerLista(miptrRef, 10);
         int c = recorrerLista(miptrRef, 8);
         int d = recorrerLista(miptrRef, 6);
         int e = recorrerLista(miptrRef, 4);
 
-        printf("Se ocuparon %d barras de 12", a);
-        printf("Se ocuparon %d barras de 10", b);
-        printf("Se ocuparon %d barras de 8", c);
-        printf("Se ocuparon %d barras de 6", d);
-        printf("Se ocuparon %d barras de 4", e);
+        printf("Se ocuparon %d barras de 12\n", a);
+        printf("Se ocuparon %d barras de 10\n", b);
+        printf("Se ocuparon %d barras de 8\n", c);
+        printf("Se ocuparon %d barras de 6\n", d);
+        printf("Se ocuparon %d barras de 4\n", e);
 
     }else{
-        printf("NO es posible cortar %d barras para una barra de longitud %d", demanda, longitud);
+        printf("NO es posible cortar %d barras para una barra de longitud %d\n", demanda, longitud);
     }
+    printf("Tabla \n\n");
+    verTabla(Tabla_Hash);
 
     return 0;
 }
