@@ -1,3 +1,24 @@
+
+# include <stdio.h>
+# include <stdlib.h>
+
+
+
+int posiblesCortes(int cortes, int longitud, int demanda, int queCortes){
+
+
+}
+
+int main(){
+
+    int cortes[5] = {4, 6, 8, 10, 12};
+
+
+    return 0;
+}
+
+/*
+
 def PosibleCambio(monedas, importe, num_monedas, queMonedas, index=0, memo=None):
     if memo is None:
         memo = {}
@@ -49,3 +70,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+*/
