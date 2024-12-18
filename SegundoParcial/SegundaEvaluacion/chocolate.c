@@ -2,6 +2,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "Hash.h"
+# include "Hash2.h"
 
 struct Nodo2{
     int dato;
@@ -11,8 +12,7 @@ struct Nodo2* crearNodo(int elem);
 void meterNodo(struct Nodo2 *ptrRef, int elem); //no va a regresar nada bc ptrRef
 int recorrerLista(struct Nodo2* ptrRef, int valorBuscado);
 
-
-int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo2 *queCortes, int indice, Nodo** Tabla_Hash){
+int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo3 *queCortes, int indice, Nodo** Tabla_Hash){
     if(longitud==0 && demanda ==0){
         return 1;
     }
@@ -34,7 +34,20 @@ int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo2 *queCo
         clave2.a[0]=longitud;
         clave2.a[1]=demanda;
         clave2.a[2]=indice;
-        meterNodo(queCortes, cortes[indice]);
+
+        // agregar al hashmap 
+        //insertarNodo3(cortes[indice], 1);
+
+        Nodo3 *nodoExistente = BuscarNodo3(cortes[indice]);
+        if (nodoExistente) {
+            nodoExistente->valor++; 
+        } else {
+            insertarNodo3(cortes[indice], 1);
+        }
+
+        //meterNodo(queCortes, cortes[indice]);
+        
+        
         insertar(clave2,1);
         return 1;
     }
@@ -52,9 +65,12 @@ int main(){
 
     int cortes[5] = {4, 6, 8, 10, 12};
 
-    struct Nodo2 *miptrRef;
+    //struct Nodo2 *miptrRef;
+
+    struct Nodo3 *miptrRef;
+
     int mielem;
-    miptrRef=crearNodo(-1000);
+    //miptrRef=crearNodo(-1000);
 
     int longitud, demanda;
     printf("Ingrese la longitud de la barra de chocolate: ");
@@ -66,17 +82,18 @@ int main(){
     int flag = posiblesCortes(cortes, longitud, demanda, miptrRef, 0, Tabla_Hash);
     if(flag){
         printf("Es posible cortar la barra de longitud %d con %d barras distintas\n", longitud, demanda);
-        int a = recorrerLista(miptrRef, 12);
-        int b = recorrerLista(miptrRef, 10);
-        int c = recorrerLista(miptrRef, 8);
-        int d = recorrerLista(miptrRef, 6);
-        int e = recorrerLista(miptrRef, 4);
+        Nodo3 *a = BuscarNodo3(12);
+        Nodo3 *b = BuscarNodo3(10);
+        Nodo3 *c = BuscarNodo3(8);
+        Nodo3 *d = BuscarNodo3(6);
+        Nodo3 *e = BuscarNodo3(4);
 
-        printf("Se ocuparon %d barras de 12\n", a);
-        printf("Se ocuparon %d barras de 10\n", b);
-        printf("Se ocuparon %d barras de 8\n", c);
-        printf("Se ocuparon %d barras de 6\n", d);
-        printf("Se ocuparon %d barras de 4\n", e);
+        //printf("%d", a);
+        printf("Se ocuparon %d barras de 12\n", a->clave);
+        //printf("Se ocuparon %d barras de 10\n", b);
+        //printf("Se ocuparon %d barras de 8\n", c);
+        //printf("Se ocuparon %d barras de 6\n", d);
+        //printf("Se ocuparon %d barras de 4\n", e);
 
     }else{
         printf("NO es posible cortar %d barras para una barra de longitud %d\n", demanda, longitud);
@@ -86,7 +103,6 @@ int main(){
 
     return 0;
 }
-
 
 struct Nodo2* crearNodo(int elem){
     struct Nodo2 *ptrN;
@@ -105,8 +121,7 @@ void meterNodo(struct Nodo2* ptrRef, int elem){
         ptrRef->ptrSig=ptrN1;
 };
 
-
-
+/*
 int recorrerLista(struct Nodo2 *ptrRef, int valorBuscado){
     struct Nodo2 *ptrRec;
     int contador;
@@ -121,10 +136,10 @@ int recorrerLista(struct Nodo2 *ptrRef, int valorBuscado){
     return contador;
     //printf("\n");
 };
+*/
 
 
 /*
-
 def PosibleCambio(monedas, importe, num_monedas, queMonedas, index=0, memo=None):
     if memo is None:
         memo = {}

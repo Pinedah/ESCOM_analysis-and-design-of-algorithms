@@ -5,6 +5,7 @@
 typedef struct key {
     int a[3];  
 } key;
+
 typedef struct Nodo {
     key clave;           
     int valor;            
