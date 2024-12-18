@@ -66,13 +66,33 @@ int main(){
     int mielem;
     //miptrRef=crearNodo(-1000);
 
-    int longitud, demanda;
+    int longitud, demanda, resultado;
     printf("Ingrese la longitud de la barra de chocolate: ");
-    scanf("%d", &longitud);
+    while (1) {
+        resultado = scanf("%d", &longitud);
+
+        if (resultado == 1 && longitud > 2) {
+            break;
+        } else {
+            
+            printf("Entrada invalida. Ingrese un numero mayor que 2: ");
+            while(getchar() != '\n');
+        }
+    }
     printf("Ingrese la demanda (cantidad de barras deseadas): ");
-    scanf("%d", &demanda); 
-    if(demanda&1){
-        printf("Es posible cortar la barra de longitud %d con %d barras distintas pues es impar\n", longitud, demanda);
+    while (1) {
+        int resultado = scanf("%d", &demanda);
+
+        if (resultado == 1 && demanda > 0) {
+            break;
+        } else {
+            
+            printf("Entrada invalida. Ingrese un numero mayor que 0: ");
+            while(getchar() != '\n');
+        }
+    }
+    if(longitud&1){
+        printf("Es posible cortar la barra de longitud %d con %d barras distintas pues la longitud es impar\n", longitud, demanda);
         exit(0);
     }
     t_tam = 26;
