@@ -10,10 +10,10 @@ typedef struct Nodo3 {
 } Nodo3;
 
 Nodo3 **Tabla_Hash3;
-int t_tam;
+int t_tam3;
 
 int hash3(int clave) {
-    return (clave % t_tam);
+    return (clave % t_tam3);
 }
 
 Nodo3 *NuevoNodoNodo3(int clave, int valor) {
@@ -25,8 +25,8 @@ Nodo3 *NuevoNodoNodo3(int clave, int valor) {
 }
 
 void insertarNodo3(int clave, int valor) {
-    int indice = hash3(clave);
-    Nodo3 *p = Tabla_Hash3[indice];
+    int indice3 = hash3(clave);
+    Nodo3 *p = Tabla_Hash3[indice3];
 
     while (p) {
         if (p->clave == clave) {
@@ -38,8 +38,8 @@ void insertarNodo3(int clave, int valor) {
 
     
     Nodo3 *nuevo = NuevoNodoNodo3(clave, valor);
-    nuevo->ptrsig = Tabla_Hash3[indice];
-    Tabla_Hash3[indice] = nuevo;
+    nuevo->ptrsig = Tabla_Hash3[indice3];
+    Tabla_Hash3[indice3] = nuevo;
 }
 
 Nodo3 *BuscarNodo3(int clave) {
@@ -76,10 +76,22 @@ void verTablaNodo3() {
         Nodo3 *p = Tabla_Hash3[i];
         printf("Hash %d: ", i);
         while (p) {
-            printf("[%c: %d] -> ", p->clave, p->valor);
+            printf("[%d: %d] -> ", p->clave, p->valor);
             p = p->ptrsig;
         }
         printf("NULL\n");
+    }
+}
+
+void suprimirTablaHash3() {
+    for (int i = 0; i < t_tam3; i++) {
+        Nodo3 *p = Tabla_Hash3[i];
+        while (p) {
+            Nodo3 *temp = p;
+            p = p->ptrsig;
+            free(temp);
+        }
+        Tabla_Hash3[i] = NULL; 
     }
 }
 

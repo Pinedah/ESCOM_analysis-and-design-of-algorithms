@@ -12,7 +12,7 @@ struct Nodo2* crearNodo(int elem);
 void meterNodo(struct Nodo2 *ptrRef, int elem); //no va a regresar nada bc ptrRef
 int recorrerLista(struct Nodo2* ptrRef, int valorBuscado);
 
-int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo3 *queCortes, int indice, Nodo** Tabla_Hash){
+int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo3** Tabla_Hash3, int indice, Nodo** Tabla_Hash){
     if(longitud==0 && demanda ==0){
         return 1;
     }
@@ -27,7 +27,7 @@ int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo3 *queCo
     if(nodoExistente){
         return nodoExistente->valor;
     }
-    int corte = posiblesCortes(cortes, longitud - cortes[indice], demanda - 1, queCortes, indice, Tabla_Hash); 
+    int corte = posiblesCortes(cortes, longitud - cortes[indice], demanda - 1, Tabla_Hash3, indice, Tabla_Hash); 
     
     if(corte){
         key clave2;
@@ -35,23 +35,17 @@ int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo3 *queCo
         clave2.a[1]=demanda;
         clave2.a[2]=indice;
 
-        // agregar al hashmap 
+        // agregar al hashmap ñ
         //insertarNodo3(cortes[indice], 1);
-
-        Nodo3 *nodoExistente = BuscarNodo3(cortes[indice]);
-        if (nodoExistente) {
-            nodoExistente->valor++; 
-        } else {
-            insertarNodo3(cortes[indice], 1);
+        //no encuentra nodoexistente
+        Nodo3 *nodito3 = BuscarNodo3((int)cortes[indice]);
+        if (nodito3) {
+            nodito3->valor=(nodito3->valor)+1;
         }
-
-        //meterNodo(queCortes, cortes[indice]);
-        
-        
         insertar(clave2,1);
         return 1;
     }
-    int no_usar_corte = posiblesCortes(cortes, longitud, demanda,queCortes,indice+1,Tabla_Hash);
+    int no_usar_corte = posiblesCortes(cortes, longitud, demanda,Tabla_Hash3,indice+1,Tabla_Hash);
     key clave3;
     clave3.a[0]=longitud;
     clave3.a[1]=demanda;
@@ -77,9 +71,20 @@ int main(){
     scanf("%d", &longitud);
     printf("Ingrese la demanda (cantidad de barras deseadas): ");
     scanf("%d", &demanda); 
+    if(demanda&1){
+        printf("Es posible cortar la barra de longitud %d con %d barras distintas pues es impar\n", longitud, demanda);
+        exit(0);
+    }
     t_tam = 26;
+    t_tam3=13;
     Tabla_Hash = (Nodo **)calloc(t_tam, sizeof(Nodo *));
-    int flag = posiblesCortes(cortes, longitud, demanda, miptrRef, 0, Tabla_Hash);
+    Tabla_Hash3 = (Nodo3 **)calloc(t_tam3, sizeof(Nodo3 *));
+    insertarNodo3(12, 0);
+    insertarNodo3(10, 0);
+    insertarNodo3(8, 0);
+    insertarNodo3(6, 0);
+    insertarNodo3(4, 0);
+    int flag = posiblesCortes(cortes, longitud, demanda, Tabla_Hash3, 0, Tabla_Hash);
     if(flag){
         printf("Es posible cortar la barra de longitud %d con %d barras distintas\n", longitud, demanda);
         Nodo3 *a = BuscarNodo3(12);
@@ -89,18 +94,19 @@ int main(){
         Nodo3 *e = BuscarNodo3(4);
 
         //printf("%d", a);
-        printf("Se ocuparon %d barras de 12\n", a->clave);
-        //printf("Se ocuparon %d barras de 10\n", b);
-        //printf("Se ocuparon %d barras de 8\n", c);
-        //printf("Se ocuparon %d barras de 6\n", d);
-        //printf("Se ocuparon %d barras de 4\n", e);
+        printf("Se ocuparon %d barras de 12\n", a->valor);
+        printf("Se ocuparon %d barras de 10\n", b->valor);
+        printf("Se ocuparon %d barras de 8\n", c->valor);
+        printf("Se ocuparon %d barras de 6\n", d->valor);
+        printf("Se ocuparon %d barras de 4\n", e->valor);
 
     }else{
         printf("NO es posible cortar %d barras para una barra de longitud %d\n", demanda, longitud);
     }
-    printf("Tabla \n\n");
-    verTabla(Tabla_Hash);
-
+    //printf("Tabla \n\n");
+    //verTablaNodo3(Tabla_Hash3);
+    suprimirTablaHash3();
+    suprimirTablaHash();
     return 0;
 }
 

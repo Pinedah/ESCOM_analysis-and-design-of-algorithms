@@ -100,6 +100,17 @@ void verTabla() {
         printf("NULL\n");
     }
 }
+void suprimirTablaHash() {
+    for (int i = 0; i < t_tam; i++) {
+        Nodo *p = Tabla_Hash[i];
+        while (p) {
+            Nodo *temp = p;
+            p = p->ptrsig;
+            free(temp);
+        }
+        Tabla_Hash[i] = NULL; 
+    }
+}
 
 
 
