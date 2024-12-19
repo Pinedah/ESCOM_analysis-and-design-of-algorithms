@@ -52,21 +52,51 @@ int posiblesCortes(int cortes[5], int longitud, int demanda, struct Nodo3** Tabl
     clave3.a[2]=indice;
     insertar(clave3,no_usar_corte);
     return no_usar_corte;
+}
 
+int menu(){
+    int opcion;
+    printf("Para utilizar las medidas de cortes predeterninadas [4,6,8,10,12] escriba 1\n");
+    printf("Para introducir  medidas de demandas personalizadas escriba 2\n");
+    scanf("%d", &opcion);
+    return opcion;
 }
 
 int main(){
 
-    int cortes[5] = {4, 6, 8, 10, 12};
-
+    
     //struct Nodo2 *miptrRef;
-
-    struct Nodo3 *miptrRef;
-
-    int mielem;
+    //struct Nodo3 *miptrRef;
+    //int mielem;
     //miptrRef=crearNodo(-1000);
 
-    int longitud, demanda, resultado;
+    int longitud, longitudp, demanda, resultado, num, valor;
+    int cortes[5] = {0, 0, 0, 0, 0};
+    num = 0;
+
+    switch(menu()){
+        case(1):
+            cortes[0] = 12;
+            cortes[1] = 10;
+            cortes[2] = 8;
+            cortes[3] = 6;
+            cortes[4] = 4;
+            num=5;
+            break;
+        case(2):
+            do {
+            printf("Introduzca el numero de cortes personalizados (mayor a 0, menor a 6): ");
+            scanf("%d", &num);
+            } while (num <= 0 || num > 5); 
+        
+            printf("Introduzca cada una de sus medidas seguidas por presionar 'enter' ");
+            for (int i = 0; i < num; i++) {
+                scanf("%d", &valor);
+                cortes[i] = valor;
+            }
+            break; 
+    }
+
     printf("Ingrese la longitud de la barra de chocolate: ");
     while (1) {
         resultado = scanf("%d", &longitud);
@@ -79,6 +109,7 @@ int main(){
             while(getchar() != '\n');
         }
     }
+    longitudp = longitud;
     printf("Ingrese la demanda (cantidad de barras deseadas): ");
     while (1) {
         int resultado = scanf("%d", &demanda);
@@ -92,33 +123,39 @@ int main(){
         }
     }
     if(longitud&1){
-        printf("Es posible cortar la barra de longitud %d con %d barras distintas pues la longitud es impar\n", longitud, demanda);
-        exit(0);
+        longitudp = longitud - 3; 
     }
     t_tam = 26;
     t_tam3=13;
     Tabla_Hash = (Nodo **)calloc(t_tam, sizeof(Nodo *));
     Tabla_Hash3 = (Nodo3 **)calloc(t_tam3, sizeof(Nodo3 *));
-    insertarNodo3(12, 0);
-    insertarNodo3(10, 0);
-    insertarNodo3(8, 0);
-    insertarNodo3(6, 0);
-    insertarNodo3(4, 0);
-    int flag = posiblesCortes(cortes, longitud, demanda, Tabla_Hash3, 0, Tabla_Hash);
+    for(int i=0; i<num; i++){
+        insertarNodo3(cortes[i], 0);
+    }
+
+    int flag = posiblesCortes(cortes, longitudp, demanda, Tabla_Hash3, 0, Tabla_Hash);
     if(flag){
         printf("Es posible cortar la barra de longitud %d con %d barras distintas\n", longitud, demanda);
-        Nodo3 *a = BuscarNodo3(12);
-        Nodo3 *b = BuscarNodo3(10);
-        Nodo3 *c = BuscarNodo3(8);
-        Nodo3 *d = BuscarNodo3(6);
-        Nodo3 *e = BuscarNodo3(4);
+
+        for(int i=0; i<num; i++){
+            Nodo3 *a = BuscarNodo3(cortes[i]);
+            printf("Se ocuparon %d barras de %d\n", a->valor, cortes[i]);
+        }
+        /*Nodo3 *a = BuscarNodo3(cortes[0]);
+        Nodo3 *b = BuscarNodo3(cortes[1]);
+        Nodo3 *c = BuscarNodo3(cortes[2]);
+        Nodo3 *d = BuscarNodo3(cortes[3]);
+        Nodo3 *e = BuscarNodo3(cortes[4]);
 
         //printf("%d", a);
-        printf("Se ocuparon %d barras de 12\n", a->valor);
-        printf("Se ocuparon %d barras de 10\n", b->valor);
-        printf("Se ocuparon %d barras de 8\n", c->valor);
-        printf("Se ocuparon %d barras de 6\n", d->valor);
-        printf("Se ocuparon %d barras de 4\n", e->valor);
+        printf("Se ocuparon %d barras de %d\n", a->valor, cortes[0]);
+        printf("Se ocuparon %d barras de %d\n", b->valor, cortes[1]);
+        printf("Se ocuparon %d barras de %d\n", c->valor, cortes[2]);
+        printf("Se ocuparon %d barras de %d\n", d->valor, cortes[3]);
+        printf("Se ocuparon %d barras de %d\n", e->valor, cortes[4]);*/
+
+        if(longitud&1)
+            printf("Con un sobrante de longitud 3\n");
 
     }else{
         printf("NO es posible cortar %d barras para una barra de longitud %d\n", demanda, longitud);
@@ -142,9 +179,10 @@ void meterNodo(struct Nodo2* ptrRef, int elem){
     ptrN1=crearNodo(elem);
     if(ptrRef->ptrSig==NULL)
         ptrRef->ptrSig=ptrN1; //creamos Nodo2 de cabecera
-    else
+    else{
         ptrN1->ptrSig=ptrRef->ptrSig; //Un nodo comun ahora apunta al Nodo2 de cabecera //!SIEMPRE PRIMER ENLACE DESDE LA DERECHA(del nodo nuevo)
         ptrRef->ptrSig=ptrN1;
+    }
 };
 
 /*
