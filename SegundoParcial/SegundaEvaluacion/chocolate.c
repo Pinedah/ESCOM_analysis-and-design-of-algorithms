@@ -92,7 +92,7 @@ int main(){
         }
     }
     if(longitud&1){
-        printf("Es posible cortar la barra de longitud %d con %d barras distintas pues la longitud es impar\n", longitud, demanda);
+        printf("NO Es posible cortar la barra de longitud %d con %d barras distintas pues la longitud es impar\n", longitud, demanda);
         exit(0);
     }
     t_tam = 26;
