@@ -117,7 +117,7 @@ int isSizeOne(struct MinHeap* minHeap)
 // A standard function to extract 
 // minimum value node from heap 
 struct MinHeapNode* extractMin(struct MinHeap* minHeap) 
-  
+ 
 { 
   
     struct MinHeapNode* temp = minHeap->array[0]; 
@@ -244,11 +244,8 @@ struct MinHeapNode* buildHuffmanTree(char data[],
   
 // Prints huffman codes from the root of Huffman Tree. 
 // It uses arr[] to store codes 
-void printCodes(struct MinHeapNode* root, int arr[], 
-                int top) 
-  
-{ 
-  
+void printCodes(struct MinHeapNode* root, int arr[], int top) 
+{  
     // Assign 0 to left edge and recur 
     if (root->left) { 
   
