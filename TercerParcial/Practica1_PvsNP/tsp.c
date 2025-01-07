@@ -2,7 +2,7 @@
 #include <limits.h>
 #include <stdbool.h>
 
-#define N 4 // Número de ciudades
+#define N 8 // Número de ciudades
 
 // Función para encontrar la ciudad más cercana no visitada
 int ciudadMasCercana(int graph[][N], bool visitado[], int ciudadActual) {
@@ -28,7 +28,7 @@ int tspGreedy(int graph[][N]) {
     int costoTotal = 0;
     int siguienteCiudad;
 
-    printf("Recorrido: %d -> ", ciudadActual);
+    printf("Recorrido: Nodo %d -> ", ciudadActual+1);
 
     for (int i = 0; i < N - 1; i++) {
         siguienteCiudad = ciudadMasCercana(graph, visitado, ciudadActual);
@@ -37,7 +37,7 @@ int tspGreedy(int graph[][N]) {
             break;
         }
 
-        printf("%d -> ", siguienteCiudad);
+        printf("Nodo %d -> ", siguienteCiudad+1);
 
         costoTotal += graph[ciudadActual][siguienteCiudad];
         visitado[siguienteCiudad] = true;
@@ -46,7 +46,7 @@ int tspGreedy(int graph[][N]) {
 
     // Regresar a la ciudad inicial
     costoTotal += graph[ciudadActual][0];
-    printf("0\n");
+    printf("Nodo 1\n");
 
     return costoTotal;
 }
@@ -55,10 +55,14 @@ int tspGreedy(int graph[][N]) {
 int main() {
     // Matriz de distancias entre ciudades
     int graph[N][N] = {
-        {0, 10, 15, 20},
-        {10, 0, 35, 25},
-        {15, 35, 0, 30},
-        {20, 25, 30, 0}
+        {0, 3, 4, 8, 8, INT_MAX, INT_MAX, INT_MAX},
+        {3, 0, 4, 4, INT_MAX, INT_MAX, INT_MAX, INT_MAX},
+        {4, 4, 0, 6, 5, 5, 5, 10},
+        {8, 4, 6, 0, INT_MAX, INT_MAX, 8, 3},
+        {8, INT_MAX, 5, INT_MAX, 0, 4, INT_MAX, INT_MAX},
+        {INT_MAX, INT_MAX, 5, INT_MAX, 4, 0, 6, INT_MAX},
+        {INT_MAX, INT_MAX, 5, 8, INT_MAX, 6, 0, 4},
+        {INT_MAX, INT_MAX, 10, 3, INT_MAX, INT_MAX, 4, 0}
     };
 
     int costo = tspGreedy(graph);
